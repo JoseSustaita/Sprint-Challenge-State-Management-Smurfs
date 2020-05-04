@@ -7,7 +7,7 @@ export const ADDSUCCESS = "ADDSUCCESS";
 export const ADDFAILED = "ADDFAILEDS";
 
 export const fetchSmurf = () => (dispatch) => {
-  dispatch({ type: FETCHSMURF, payload: "Building the village" });
+  dispatch({ type: FETCHSMURF });
   axios
     .get("http://localhost:3333/smurfs")
     .then((res) => {
@@ -22,7 +22,7 @@ export const fetchSmurf = () => (dispatch) => {
 };
 
 export const addSmurf = (smurf) => (dispatch) => {
-  dispatch({ type: ADDSMURF, payload: "Adding to the village" });
+  dispatch({ type: ADDSMURF });
   console.log("addS", smurf);
   axios
     .post("http://localhost:3333/smurfs", smurf)
