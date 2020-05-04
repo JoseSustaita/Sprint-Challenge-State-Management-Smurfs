@@ -1,11 +1,40 @@
-import Axios from "axios";
+import axios from "axios";
+export const FETCHSMURF = "FETCHSMURF";
+export const FETCHSUCCESS = "FETCHSUCCESS";
+export const FETCHFAILED = "FETCHFAILED";
+export const ADDSMURF = "ADDSMURF";
+export const ADDSUCCESS = "ADDSUCCESS";
+export const ADDFAILED = "ADDFAILEDS";
 
-export const getSmurf = () => (dispatch) => {
-  dispatch({ type: "GETSMURF" });
-  Axios.get(`http://localhost:3333/smurfs`)
+export const fetchSmurf = () => (dispatch) => {
+  dispatch({ type: FETCHSMURF, payload: "Building the village" });
+  axios
+    .get("http://localhost:3333/smurfs")
     .then((res) => {
-      console.log(res.data);
-      dispatch({ type: "SUCCESS", payload: res.data });
+      dispatch({ type: FETCHSUCCESS, payload: res.data });
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      dispatch({
+        type: FETCHFAILED,
+        payload: err,
+      });
+    });
+};
+
+export const addSmurf = (smurf) => (dispatch) => {
+  dispatch({ type: ADDSMURF, payload: "Adding to the village" });
+  console.log("addS", smurf);
+  axios
+    .post("http://localhost:3333/smurfs", smurf)
+    .then((res) => {
+      console.log("RES", res.data);
+      dispatch({ type: ADDSUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: ADDFAILED,
+        payload: err,
+      });
+    });
 };
